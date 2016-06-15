@@ -1,0 +1,153 @@
+html {
+  height: 100%;
+}
+
+body {
+  height: 100%;
+  overflow: hidden;
+}
+
+.navbar-inner {
+    display: flex;
+    align-items: center;
+}
+
+.rev {
+    flex: 1 1 auto;
+    text-align: right;
+}
+
+#logo {
+  font-weight: bold;
+  color: #000000;
+}
+
+.popover-title {
+  padding-left: 8px;
+}
+
+#share-url {
+    margin-left: -6px;
+}
+
+label {
+    display: inline;
+}
+
+header input[type="checkbox"],
+header select {
+    margin: 0 1rem 0 0;
+}
+
+.navbar .btn {
+    margin: 0 .5rem 0;
+}
+
+#lang {
+    width: 7rem;
+}
+
+#fixture {
+    width: 15rem;
+}
+
+.container-fluid .row-fluid {
+  bottom: 0;
+  top: 41px;
+  left: 0;
+  right: 0;
+  position: absolute;
+}
+
+.container-fluid .row-fluid .span2 {
+  background: #FFFFFF;
+  position: relative;
+  height: 100%;
+  margin: 0;
+}
+
+.row-fluid .narrow {
+    width: 45%;
+}
+
+.row-fluid .wide {
+    width: 55%;
+}
+
+#source,
+#output {
+  height: 70%;
+}
+
+#source {
+  background-color: rgb(253, 246, 227);
+}
+
+#context,
+#errors {
+  border-top: 1px solid #EBEBEB;
+  height: 30%;
+}
+
+#source,
+#context {
+  border-right: 1px solid #EBEBEB;
+}
+
+.ace_scrollbar {
+  overflow-x: hidden;
+  overflow-y: auto !important;
+}
+
+dl {
+  margin: 0;
+}
+
+dd {
+  margin: 0;
+  white-space: pre-wrap;
+}
+
+#output {
+  overflow-y: auto;
+}
+
+#output div {
+  margin: 5px 8px 0;
+}
+
+#output dt {
+  display: inline-block;
+  width: 45%;
+}
+
+#output dt code {
+  color: #DD1144;
+  font-weight: normal;
+}
+
+#output dt code.disabled {
+  color: #999999;
+}
+
+#output dd {
+  width: 55%;
+  color: #666666;
+  display: inline-block;
+  vertical-align: top;
+  font-size: 13px;
+}
+
+#errors {
+  overflow-y: auto;
+  padding: 5px 8px;
+}
+
+#errors dt {
+  color: #DD1144;
+}
+
+#errors pre em {
+  font-style: normal;
+  background-color: #FEBECE;
+}
