@@ -13,48 +13,94 @@ Another important thing is the included JS files. The most important is script.j
 
 In script.js you have to find two things:
 
-  - Function: loadFixture() - located in 211 line
-  - Event: $('#lang').change() - located in 258 line
+  - Function: loadFixture() - located in 228 line
+  - Event: $('#lang').change() - located in 282 line
+  - Const: fixtures - located in 209 line
+
+### fixtures
+
+You can find information where are located files with translations and also a json file:
+
+```js
+	default: {
+      ftl: 'fixtures/default.ftl',
+      json: 'fixtures/default.json',
+    },
+```
+
+I deleted extension of the ftl file - because I need to add 'lang' value in it.
+
+Oryginal version:
+
+```js
+  const fixtures = {
+    default: {
+      ftl: 'fixtures/default.ftl',
+      json: 'fixtures/default.json',
+    },
+    aboutDialog: {
+      resId: '/browser/aboutDialog.ftl',
+      ftl: 'fixtures/aboutDialog.ftl',
+      json: 'fixtures/aboutDialog.json',
+      demo: true,
+    },
+    aboutSupport: {
+      resId: '/global/aboutSupport.ftl',
+      ftl: 'fixtures/aboutSupport.ftl',
+      json: 'fixtures/aboutSupport.json',
+      demo: true,
+    },
+  };
+```
+
+After my modyfications:
+
+```js
+  const fixtures = {
+    default: {
+      ftl: 'fixtures/default',
+      json: 'fixtures/default.json',
+    },
+    aboutDialog: {
+      resId: '/browser/aboutDialog.ftl',
+      ftl: 'fixtures/aboutDialog',
+      json: 'fixtures/aboutDialog.json',
+      demo: true,
+    },
+    aboutSupport: {
+      resId: '/global/aboutSupport.ftl',
+      ftl: 'fixtures/aboutSupport',
+      json: 'fixtures/aboutSupport.json',
+      demo: true,
+    },
+  };
+```
 
 ### loadFixture()
 
-In this functions you can find information where are located files with translations:
 
-```js
-fetch(`fixtures/${name}.ftl`).then(resp => resp.text()),
-```
-
-And where is located a json file with variables:
-
-```js
-fetch(`fixtures/${name}.json`).then(resp => resp.text()),
-```
-  
-  I added 'lang' variable and I get value from '#lang' field:
-  
-  ```js
-  var lang = $('#lang').val();
- ```
  And I put value of 'lang' to the path to FTL file. Because I want to get the file with selected language:
  
  ```js
- fetch(`fixtures/${name}.${lang}.ftl`).then(resp => resp.text()),
+ fetch(fixtures[name].ftl + '.' + config.lang + '.ftl').then(resp => resp.text()),
  ```
   
   Oryginal version:
 
 ```js 
-function loadFixture(name) {
-    Promise.all([
-      fetch(`fixtures/${name}.ftl`).then(resp => resp.text()),
-      fetch(`fixtures/${name}.json`).then(resp => resp.text()),
+  function loadFixture(name) {
+    return Promise.all([
+      fetch(fixtures[name].ftl).then(resp => resp.text()),
+      fetch(fixtures[name].json).then(resp => resp.text()),
     ]).then(([ftl, args]) => {
       source.setValue(ftl);
       context.setValue(args);
       source.clearSelection();
       context.clearSelection();
       source.gotoLine(0);
-    }).then(update);
+    }).then(
+      update
+    );
   }
   ```
   
@@ -62,17 +108,18 @@ function loadFixture(name) {
   
   ```js
   function loadFixture(name) {
-    var lang = $('#lang').val();
-    Promise.all([
-      fetch(`fixtures/${name}.${lang}.ftl`).then(resp => resp.text()),
-      fetch(`fixtures/${name}.json`).then(resp => resp.text()),
+    return Promise.all([
+      fetch(fixtures[name].ftl + '.' + config.lang + '.ftl').then(resp => resp.text()),
+      fetch(fixtures[name].json).then(resp => resp.text()),
     ]).then(([ftl, args]) => {
       source.setValue(ftl);
       context.setValue(args);
       source.clearSelection();
       context.clearSelection();
       source.gotoLine(0);
-    }).then(update);
+    }).then(
+      update
+    );
   }
   ```
   
@@ -83,13 +130,16 @@ function loadFixture(name) {
   I added 'name' variable and I get value from '#fixture' field:
   
   ```js
-  var name = $('#fixture').val();
+	const fixture = $('#fixture').val();
+	config.fixture = fixture;
   ```
   
   And than I added a loadFixture function call:
   
   ```js
-  loadFixture(name);
+    loadFixture(fixture).then(
+      () => L20nDemo.update()
+    );
   ```
   
   I deleted update(); function call, because loadFixture has this function call as well.
@@ -101,17 +151,20 @@ function loadFixture(name) {
   $('#lang').change(function(evt) {
     config.lang = $(this).val();
     update();
+    L20nDemo.update();
   });
   ```
   
   After my modyfications:
 
-  
   ```js
   $('#lang').change(function(evt) {
     config.lang = $(this).val();
-	var name = $('#fixture').val();
-	loadFixture(name);
+	const fixture = $('#fixture').val();
+	config.fixture = fixture;
+	loadFixture(fixture).then(
+      () => L20nDemo.update()
+    );
   });
   ```
   

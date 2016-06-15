@@ -3,6 +3,7 @@ $(function() {
   var config = {
     escapeHtml: true,
     lang: 'en-US',
+    fixture: 'default',
   };
 
   const functions = {
@@ -27,8 +28,6 @@ $(function() {
     } catch (e) {}
 
     var messages = source.getValue();
-
-    sendMozL20nDemoEvent('update', { messages });
 
     try {
       var [resource, errors] = L20n.FTLASTParser.parseResource(messages);
@@ -103,14 +102,17 @@ $(function() {
 
   /* L20n Demo for MozLondon */
 
-  function sendMozL20nDemoEvent(action, data = {}) {
-    var event = new CustomEvent('mozL20nDemo', {
-      bubbles: true,
-      detail: { action, data }
-    });
+  function getState() {
+    return {
+      demo: fixtures[config.fixture].demo,
+      resId: fixtures[config.fixture].resId,
+      lang: config.lang,
+      messages: source.getValue(),
+    }
+  };
 
-    document.dispatchEvent(event);
-  }
+  L20nDemo.init(getState);
+
 
   /* ACE */
 
@@ -203,23 +205,39 @@ $(function() {
 
 
   /* Fixtures */
-
-  document.querySelector('#fixture').addEventListener(
-    'change', evt => loadFixture(evt.target.value)
-  );
+  
+  const fixtures = {
+    default: {
+      ftl: 'fixtures/default',
+      json: 'fixtures/default.json',
+    },
+    aboutDialog: {
+      resId: '/browser/aboutDialog.ftl',
+      ftl: 'fixtures/aboutDialog',
+      json: 'fixtures/aboutDialog.json',
+      demo: true,
+    },
+    aboutSupport: {
+      resId: '/global/aboutSupport.ftl',
+      ftl: 'fixtures/aboutSupport',
+      json: 'fixtures/aboutSupport.json',
+      demo: true,
+    },
+  };
 
   function loadFixture(name) {
-    var lang = $('#lang').val();
-    Promise.all([
-      fetch(`fixtures/${name}.${lang}.ftl`).then(resp => resp.text()),
-      fetch(`fixtures/${name}.json`).then(resp => resp.text()),
+    return Promise.all([
+      fetch(fixtures[name].ftl + '.' + config.lang + '.ftl').then(resp => resp.text()),
+      fetch(fixtures[name].json).then(resp => resp.text()),
     ]).then(([ftl, args]) => {
       source.setValue(ftl);
       context.setValue(args);
       source.clearSelection();
       context.clearSelection();
       source.gotoLine(0);
-    }).then(update);
+    }).then(
+      update
+    );
   }
 
   /* Main Code */
@@ -232,12 +250,18 @@ $(function() {
     context.setValue(state.context);
     if (state.config) {
       config = state.config;
+      document.querySelector('#lang').value = config.lang;
+      document.querySelector('#fixture').value = config.fixture;
+      document.querySelector('#escape-html').checkde = config.escapeHtml;
+      L20nDemo.register();
     }
     source.clearSelection();
     source.gotoLine(0);
     context.clearSelection();
   } else {
-    loadFixture('default');
+    loadFixture('default').then(
+      () => L20nDemo.register()
+    );
   }
 
   $('#share').popover({
@@ -257,7 +281,19 @@ $(function() {
 
   $('#lang').change(function(evt) {
     config.lang = $(this).val();
-	var name = $('#fixture').val();
-	loadFixture(name);
+	const fixture = $('#fixture').val();
+	config.fixture = fixture;
+	loadFixture(fixture).then(
+      () => L20nDemo.update()
+    );
   });
+
+  $('#fixture').change(function(evt) {
+    const fixture = evt.target.value;
+    config.fixture = fixture;
+    loadFixture(fixture).then(
+      () => L20nDemo.update()
+    );
+  });
+
 });
