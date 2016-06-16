@@ -2,7 +2,7 @@ $(function() {
 
   var config = {
     escapeHtml: true,
-    lang: 'en-US',
+    lang: $('#lang').val(),
     fixture: 'default',
   };
 
