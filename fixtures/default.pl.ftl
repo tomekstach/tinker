@@ -7,29 +7,29 @@ files = { PLURAL($num-files) ->
 }
 
 posted-message = { $gender ->
- *[masculine] { $user } opublikował 
+ *[masculine] { $user } opublikował
   [feminine] { $user } opublikowała
 } tę wiadomość { DATETIME($date, day: "numeric", month: "long") }.
 
 edit = Wczoraj { PLURAL($num-edit) ->
   [0] nie { $gender -> 
-     *[masculine] edytowałeś 
+     *[masculine] edytowałeś
       [feminine] edytowałaś
     } żadnej nowej strony.
   [1] { $gender -> 
-     *[masculine] edytowałeś 
+     *[masculine] edytowałeś
       [feminine] edytowałaś
     } jedną nową stronę.
   [few] { $gender -> 
-     *[masculine] edytowałeś 
+     *[masculine] edytowałeś
       [feminine] edytowałaś
     } { $num-edit } nowe strony.
   [many] { $gender -> 
-     *[masculine] edytowałeś 
+     *[masculine] edytowałeś
       [feminine] edytowałaś
     } { $num-edit } nowych stron.
  *[other] { $gender -> 
-     *[masculine] edytowałeś 
+     *[masculine] edytowałeś
       [feminine] edytowałaś
     } { $num-edit } nowych stron.
 } 
@@ -43,6 +43,6 @@ query = Kwerenda w bazie danych zajęła { PLURAL($query-sec) ->
 }
 
 login = Czy { $gender ->
- *[masculine] zaakceptowałbyś 
+ *[masculine] zaakceptowałbyś
   [feminine] zaakceptowałabyś
 } "{ $username }" jako Twój login?
