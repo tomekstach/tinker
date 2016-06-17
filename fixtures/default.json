@@ -1,9 +1,9 @@
 {
-	"num": 2,
-	"user1": "Anna",
-	"dateR": "2016-04-22T08:13:56.354Z",
+	"num-files": 2,
+	"user": "Anna",
+	"date": "2016-04-22T08:13:56.354Z",
+	"num-edit": 6,
 	"gender": "feminine",
-    "sec": 0.3,
-    "username1": "reedstrm" 
+	"query-sec": 0.3,
+	"username": "reedstrm" 
 }
-
