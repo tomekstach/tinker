@@ -1,8 +1,9 @@
 {
-    "user1": "Anna",
-    "username1": "annamaria",
-    "gender": "feminine",
+	"num": 2,
+	"user1": "Anna",
+	"dateR": "2016-04-22T08:13:56.354Z",
+	"gender": "feminine",
     "sec": 0.3,
-    "num": 2,
-    "dateR": "2016-04-22T08:13:56.354Z"
+    "username1": "reedstrm" 
 }
+
