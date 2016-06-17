@@ -1,29 +1,22 @@
-hello-world = Hello, World!
-hello-user = Hello, { $user1 }!
-hello-all = Hello, { $user1, $user2 }!
-
-brand-name =
- *[nominative] Aurora
-  [locative]   Aurorze
-  
-  [gender]     feminine
-
-about = O { brand-name[locative] }
-
-crashed = { brand-name[gender] ->
- *[masculine] { brand-name } uległ awarii.
-  [feminine]  { brand-name } uległa awarii.
+files = { PLURAL($num-files) ->
+  [0]     No matching files found.
+  [1]     One matching file found.
+  [2]     Two matching files found.
+ *[other] { $num-files } matching files found.
 }
 
-new-notifications = { PLURAL($num) ->
-  [0]     No new notifications.
-  [1]     One new notification.
-  [2]     Two new notifications.
- *[other] { $num } new notifications.
+posted-message = { $user } posted this message on { DATETIME($date, day: "numeric", month: "long") }
+
+edit = Yesterday you edited { PLURAL($num-edit) ->
+  [0] no new pages.
+  [1] one new page.
+  [2] two new pages.
+ *[other] { $num-edit } new pages.
+} 
+
+query = The database query took { PLURAL($query-sec) ->
+  [1] one second
+ *[other] { $query-sec } seconds.
 }
 
-percent-complete = { $progress ->
-  [0]   Pending.
- *[_]   { NUMBER($progress, style: "percent") } complete.
-  [1]   Finished.
-}
+login = Would you accept "{ $username }" as your login?
