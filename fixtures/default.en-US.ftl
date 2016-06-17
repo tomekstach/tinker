@@ -15,7 +15,7 @@ edit = Yesterday you edited { PLURAL($num-edit) ->
 } 
 
 query = The database query took { PLURAL($query-sec) ->
-  [1] one second
+  [1] one second.
  *[other] { $query-sec } seconds.
 }
 
