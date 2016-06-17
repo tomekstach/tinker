@@ -1,17 +1,17 @@
-files = { PLURAL($num) ->
+files = { PLURAL($num-files) ->
   [0]     Nie znaleziono żadnych plików.
   [1]     Znaleziono jeden plik.
-  [few]     Znaleziono { $num } pliki.
-  [many]     Znaleziono { $num } plików.
- *[other]     Znaleziono { $num } plików.
+  [few]     Znaleziono { $num-files } pliki.
+  [many]     Znaleziono { $num-files } plików.
+ *[other]     Znaleziono { $num-files } plików.
 }
 
 posted-message = { $gender ->
- *[masculine] { $user1 } opublikował 
-  [feminine] { $user1 } opublikowała
-} tę wiadomość { DATETIME($dateR, day: "numeric", month: "long") }.
+ *[masculine] { $user } opublikował 
+  [feminine] { $user } opublikowała
+} tę wiadomość { DATETIME($date, day: "numeric", month: "long") }.
 
-edit = Wczoraj { PLURAL($num) ->
+edit = Wczoraj { PLURAL($num-edit) ->
   [0] nie { $gender -> 
      *[masculine] edytowałeś 
       [feminine] edytowałaś
@@ -23,26 +23,26 @@ edit = Wczoraj { PLURAL($num) ->
   [few] { $gender -> 
      *[masculine] edytowałeś 
       [feminine] edytowałaś
-    } { $num } nowe strony.
+    } { $num-edit } nowe strony.
   [many] { $gender -> 
      *[masculine] edytowałeś 
       [feminine] edytowałaś
-    } { $num } nowych stron.
+    } { $num-edit } nowych stron.
  *[other] { $gender -> 
      *[masculine] edytowałeś 
       [feminine] edytowałaś
-    } { $num } nowych stron.
+    } { $num-edit } nowych stron.
 } 
 
-query = Kwerenda w bazie danych zajęła { PLURAL($sec) ->
+query = Kwerenda w bazie danych zajęła { PLURAL($query-sec) ->
   [0] zero sekund.
   [1] jedną sekundę.
-  [few] { $sec } sekundy.
-  [many] { $sec } sekund.
- *[other] { $sec } sekundy.
+  [few] { $query-sec } sekundy.
+  [many] { $query-sec } sekund.
+ *[other] { $query-sec } sekundy.
 }
 
 login = Czy { $gender ->
  *[masculine] zaakceptowałbyś 
   [feminine] zaakceptowałabyś
-} "{ $username1 }" jako Twój login?
+} "{ $username }" jako Twój login?
