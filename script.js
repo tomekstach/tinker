@@ -281,9 +281,9 @@ $(function() {
 
   $('#lang').change(function(evt) {
     config.lang = $(this).val();
-	const fixture = $('#fixture').val();
-	config.fixture = fixture;
-	loadFixture(fixture).then(
+	//const fixture = $('#fixture').val();
+	//config.fixture = fixture;
+	loadFixture(config.fixture).then(
       () => L20nDemo.update()
     );
   });
